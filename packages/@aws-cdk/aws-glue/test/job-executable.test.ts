@@ -74,15 +74,14 @@ describe('JobExecutable', () => {
       })).toThrow(/extraPythonFiles is not supported for languages other than JobLanguage.PYTHON/);
     });
 
-    [glue.GlueVersion.V0_9, glue.GlueVersion.V2_0, glue.GlueVersion.V3_0].forEach((glueVersion) => {
-      test(`with JobType.PYTHON_SHELL and GlueVersion ${glueVersion} should throw`, () => {
+    [glue.PythonVersion.TWO, glue.PythonVersion.THREE, glue.PythonVersion.THREE_NINE].forEach((pythonVersion) => {
+      test(`with JobType.PYTHON_SHELL and PythonVersion ${pythonVersion} shoud succeed`, () => {
         expect(() => glue.JobExecutable.of({
           type: glue.JobType.PYTHON_SHELL,
           language: glue.JobLanguage.PYTHON,
-          pythonVersion: glue.PythonVersion.TWO,
+          pythonVersion: pythonVersion,
           script,
-          glueVersion,
-        })).toThrow(`Specified GlueVersion ${glueVersion.name} does not support Python Shell`);
+        })).toBeDefined();
       });
     });
 

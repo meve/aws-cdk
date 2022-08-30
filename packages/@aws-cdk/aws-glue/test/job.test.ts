@@ -582,14 +582,16 @@ describe('Job', () => {
     });
 
     describe('shell job', () => {
-      test('with unsupported glue version should throw', () => {
-        expect(() => new glue.Job(stack, 'Job', {
-          executable: glue.JobExecutable.pythonShell({
-            glueVersion: glue.GlueVersion.V0_9,
-            pythonVersion: glue.PythonVersion.TWO,
-            script,
-          }),
-        })).toThrow('Specified GlueVersion 0.9 does not support Python Shell');
+      [undefined, glue.GlueVersion.V0_9, glue.GlueVersion.V1_0, glue.GlueVersion.V2_0, glue.GlueVersion.V3_0].forEach((glueVersion) => {
+        test(`with glue version ${glueVersion} should succeed`, () => {
+          expect(() => new glue.Job(stack, 'Job', {
+            executable: glue.JobExecutable.pythonShell({
+              glueVersion: glueVersion,
+              pythonVersion: glue.PythonVersion.THREE_NINE,
+              script,
+            }),
+          })).toBeDefined();
+        });
       });
 
       test('with unsupported Spark UI prop should throw', () => {

@@ -143,9 +143,10 @@ interface SharedJobExecutableProps {
   /**
    * Glue version.
    *
+   * @default - not required for python shell jobs
    * @see https://docs.aws.amazon.com/glue/latest/dg/release-notes.html
    */
-  readonly glueVersion: GlueVersion;
+  readonly glueVersion?: GlueVersion;
 
   /**
    * The script that executes a job.
@@ -292,16 +293,20 @@ export class JobExecutable {
       if (config.language !== JobLanguage.PYTHON) {
         throw new Error('Python shell requires the language to be set to Python');
       }
-      if ([GlueVersion.V0_9, GlueVersion.V2_0, GlueVersion.V3_0].includes(config.glueVersion)) {
-        throw new Error(`Specified GlueVersion ${config.glueVersion.name} does not support Python Shell`);
+    }
+
+    if (config.glueVersion) {
+      if (config.extraJarsFirst && [GlueVersion.V0_9, GlueVersion.V1_0].includes(config.glueVersion)) {
+        throw new Error(`Specified GlueVersion ${config.glueVersion?.name} does not support extraJarsFirst`);
+      }
+      if (config.pythonVersion === PythonVersion.TWO && ![GlueVersion.V0_9, GlueVersion.V1_0].includes(config.glueVersion)) {
+        throw new Error(`Specified GlueVersion ${config.glueVersion?.name} does not support PythonVersion ${config.pythonVersion}`);
+      }
+      if (config.pythonVersion === PythonVersion.THREE && ![GlueVersion.V1_0, GlueVersion.V2_0, GlueVersion.V3_0].includes(config.glueVersion)) {
+        throw new Error(`Specified GlueVersion ${config.glueVersion?.name} does not support PythonVersion ${config.pythonVersion}`);
       }
     }
-    if (config.extraJarsFirst && [GlueVersion.V0_9, GlueVersion.V1_0].includes(config.glueVersion)) {
-      throw new Error(`Specified GlueVersion ${config.glueVersion.name} does not support extraJarsFirst`);
-    }
-    if (config.pythonVersion === PythonVersion.TWO && ![GlueVersion.V0_9, GlueVersion.V1_0].includes(config.glueVersion)) {
-      throw new Error(`Specified GlueVersion ${config.glueVersion.name} does not support PythonVersion ${config.pythonVersion}`);
-    }
+
     if (JobLanguage.PYTHON !== config.language && config.extraPythonFiles) {
       throw new Error('extraPythonFiles is not supported for languages other than JobLanguage.PYTHON');
     }
@@ -324,11 +329,12 @@ export class JobExecutable {
  */
 export interface JobExecutableConfig {
   /**
-   * Glue version.
+   * Glue version. Not required for python shell jobs.
    *
+   * @default - not required for python shell jobs
    * @see https://docs.aws.amazon.com/glue/latest/dg/release-notes.html
    */
-  readonly glueVersion: GlueVersion;
+  readonly glueVersion?: GlueVersion;
 
   /**
    * The language of the job (Scala or Python).

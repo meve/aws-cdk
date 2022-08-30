@@ -113,22 +113,58 @@
             "data": "ShellJob42E81F95"
           }
         ],
-        "/aws-glue-job/ShellJob39/ServiceRole/Resource": [
+        "ShellJob39ServiceRole2F6F3768": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ShellJob39ServiceRole2F6F3768"
+            "data": "ShellJob39ServiceRole2F6F3768",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
           }
         ],
-        "/aws-glue-job/ShellJob39/ServiceRole/DefaultPolicy/Resource": [
+        "ShellJob39ServiceRoleDefaultPolicy38A33919": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ShellJob39ServiceRoleDefaultPolicy38A33919"
+            "data": "ShellJob39ServiceRoleDefaultPolicy38A33919",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
           }
         ],
-        "/aws-glue-job/ShellJob39/Resource": [
+        "ShellJob390C141361": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "ShellJob390C141361"
+            "data": "ShellJob390C141361",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "PlainShellJobServiceRoleFC251BBB": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PlainShellJobServiceRoleFC251BBB",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "PlainShellJobServiceRoleDefaultPolicy81854127": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PlainShellJobServiceRoleDefaultPolicy81854127",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
+          }
+        ],
+        "PlainShellJob2E320958": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PlainShellJob2E320958",
+            "trace": [
+              "!!DESTRUCTIVE_CHANGES: WILL_DESTROY"
+            ]
           }
         ]
       },
